@@ -2,7 +2,7 @@ package cl.sse.tongji.edu.android_end.presenter.login;
 
 import cl.sse.tongji.edu.android_end.model.User;
 
-public class LoginResponseMessage {
+public class LoginResponseData {
     String code;
     Boolean flag;
     String message;

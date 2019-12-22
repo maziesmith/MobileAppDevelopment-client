@@ -11,7 +11,7 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
     <application
         android:allowBackup="true"
@@ -20,10 +20,13 @@
         android:roundIcon="@drawable/international"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".OkDownloadActivity"></activity>
+        <activity android:name=".PDFActivity" />
+
         <service
             android:name=".DownloadService"
             android:enabled="true"
-            android:exported="true"></service>
+            android:exported="true" />
 
         <activity
             android:name=".HomeActivity"

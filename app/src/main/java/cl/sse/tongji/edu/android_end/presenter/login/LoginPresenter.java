@@ -15,8 +15,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-import javax.xml.parsers.FactoryConfigurationError;
-
 import cl.sse.tongji.edu.android_end.LoginActivity;
 import cl.sse.tongji.edu.android_end.model.HttpTrust.TrustAllCerts;
 import cl.sse.tongji.edu.android_end.model.User;
@@ -30,7 +28,7 @@ import static android.content.Context.MODE_PRIVATE;
 
 public class LoginPresenter {
     private LoginActivity activity;
-    private LoginResponseMessage response_message;
+    private LoginResponseData response_message;
 
     public LoginPresenter(LoginActivity loginActivity) {
         activity = loginActivity;
@@ -56,7 +54,7 @@ public class LoginPresenter {
                     Gson gson = new Gson();
                     String json_str = gson.toJson(map);
 
-                    RequestBody body = RequestBody.create(JSON, json_str);
+                    RequestBody body = RequestBody.Companion.create(JSON, json_str);
                     Request request = new Request.Builder()
                             .url("https://118.25.153.97/auth/login")
                             .post(body)
@@ -65,7 +63,7 @@ public class LoginPresenter {
                     Log.d("LoginPresenter", "succeed");
                     String responseData = response.body().string();
                     Log.d("LoginPresenter", responseData);
-                    response_message = gson.fromJson(responseData, LoginResponseMessage.class);
+                    response_message = gson.fromJson(responseData, LoginResponseData.class);
 
                     //将用户写到存储控件以便于服务
                     User user = response_message.getUser();
