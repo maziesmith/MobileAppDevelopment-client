@@ -1,11 +1,15 @@
 package cl.sse.tongji.edu.android_end.presenter.home.viewholder;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -29,10 +33,42 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        class ClickCardListener implements View.OnClickListener{
+            private ViewHolder holder;
+            public ClickCardListener(ViewHolder iholder){
+                holder = iholder;
+            }
+
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(mContext,holder.courseName.getText().toString(),Toast.LENGTH_SHORT).show();
+                Log.d("CourseCard","listen");
+                AlertDialog.Builder builder = new AlertDialog.Builder(mContext)
+                        .setIcon(R.drawable.menu_course)
+                        .setTitle(holder.courseName.getText().toString())
+                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                Log.d("CourseCard","ok");
+                                dialogInterface.dismiss();
+                            }
+                        })
+                        .setNegativeButton("Add to Favorite", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                Log.d("CourseCard","Add to my Favorite");
+                            }
+                        });
+                builder.create().show();
+            }
+        }
+
         if(mContext==null){
             mContext = parent.getContext();
         }
         View view = LayoutInflater.from(mContext).inflate(R.layout.course_item, parent, false);
+        final ViewHolder holder = new ViewHolder(view);
+        holder.cardView.setOnClickListener(new ClickCardListener(holder));
         return new ViewHolder(view);
     }
 

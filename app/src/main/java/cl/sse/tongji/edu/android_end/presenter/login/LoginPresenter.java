@@ -19,6 +19,7 @@ import javax.xml.parsers.FactoryConfigurationError;
 
 import cl.sse.tongji.edu.android_end.LoginActivity;
 import cl.sse.tongji.edu.android_end.model.HttpTrust.TrustAllCerts;
+import cl.sse.tongji.edu.android_end.model.User;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -64,13 +65,15 @@ public class LoginPresenter {
                     Log.d("LoginPresenter", "succeed");
                     String responseData = response.body().string();
                     Log.d("LoginPresenter", responseData);
-
                     response_message = gson.fromJson(responseData, LoginResponseMessage.class);
+
+                    //将用户写到存储控件以便于服务
+                    User user = response_message.getUser();
+
+                    response_message.setUserType(type);
                     Message message = new Message();
                     message.obj = response_message;
                     handler.sendMessage(message);
-
-
 
 
                 } catch (IOException e) {
@@ -96,7 +99,7 @@ public class LoginPresenter {
                 SharedPreferences.Editor editor = activity.getSharedPreferences("token", MODE_PRIVATE).edit();
                 editor.putString("token", response_message.token);
                 editor.apply();
-                activity.jumpToHome();
+                activity.jumpToHome(response_message.getUser());
             } else {
                 activity.showErrorMessage("登陆失败", response_message.message);
             }

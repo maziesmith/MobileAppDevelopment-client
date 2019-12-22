@@ -15,6 +15,7 @@ import android.widget.Toast;
 import java.io.IOException;
 
 import cl.sse.tongji.edu.android_end.model.HttpTrust.TrustAllCerts;
+import cl.sse.tongji.edu.android_end.model.User;
 import cl.sse.tongji.edu.android_end.presenter.login.LoginPresenter;
 import okhttp3.Call;
 import okhttp3.OkHttpClient;
@@ -133,8 +134,9 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     //登陆成功跳转到首页
-    public void jumpToHome(){
+    public void jumpToHome(User user){
         Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+        intent.putExtra("user", user);
         startActivity(intent);
     }
 

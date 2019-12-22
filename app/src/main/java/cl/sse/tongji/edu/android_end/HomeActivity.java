@@ -12,6 +12,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -23,6 +24,7 @@ import com.google.android.material.navigation.NavigationView;
 import java.util.List;
 
 import cl.sse.tongji.edu.android_end.model.Course;
+import cl.sse.tongji.edu.android_end.model.User;
 import cl.sse.tongji.edu.android_end.presenter.home.CoursePresenter;
 import cl.sse.tongji.edu.android_end.presenter.home.fragment.CourseFrament;
 import cl.sse.tongji.edu.android_end.presenter.home.fragment.Test3Fragment;
@@ -36,6 +38,7 @@ public class HomeActivity extends AppCompatActivity {
     private NavigationView navigation;
     private LinearLayout home_root;
     private RecyclerView course_recycler;
+    private User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +50,7 @@ public class HomeActivity extends AppCompatActivity {
         navigation = findViewById(R.id.nav_view);
         course_recycler = findViewById(R.id.course_gallery);
 
+        user = (User) getIntent().getSerializableExtra("user");
 
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
@@ -66,8 +70,10 @@ public class HomeActivity extends AppCompatActivity {
                     case "course":
                         turnToCoursePage();
                         break;
-                    case "check":
-                        break;
+                    case "download":
+                        Intent intent = new Intent(HomeActivity.this, DownloadActivity.class);
+                        intent.putExtra("user", user);
+                        startActivity(intent);
                 }
                 return true;
             }

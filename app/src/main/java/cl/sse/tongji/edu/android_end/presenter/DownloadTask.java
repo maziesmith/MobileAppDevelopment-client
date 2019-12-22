@@ -10,6 +10,7 @@ import java.io.InputStream;
 import java.io.RandomAccessFile;
 
 import cl.sse.tongji.edu.android_end.model.HttpTrust.TrustAllCerts;
+import cl.sse.tongji.edu.android_end.model.User;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -24,10 +25,11 @@ public class DownloadTask extends AsyncTask<String, Integer, Integer> {
     private boolean isCanceled = false;
     private boolean isPause = false;
     private int lastProgress;
+    private User user;
 
-    // TODO 修改函数，把activity传进来来读取shared中的token，或者在flask里修改登陆权限
-    public DownloadTask(DownloadListener ilistener) {
+    public DownloadTask(DownloadListener ilistener, User iuser) {
         listener = ilistener;
+        user = iuser;
     }
 
     @Override
@@ -52,14 +54,15 @@ public class DownloadTask extends AsyncTask<String, Integer, Integer> {
                 return TYPE_SUCCESS;
             }
 
-            //
+
             OkHttpClient.Builder builder = new OkHttpClient.Builder();
             builder.sslSocketFactory(TrustAllCerts.createSSLSocketFactory(), new TrustAllCerts());
             builder.hostnameVerifier(new TrustAllCerts.TrustAllHostnameVerifier());
             OkHttpClient client = builder.build();
 
-            // TODO token
+            String token = user.getToken();
             Request request = new Request.Builder()
+                    .addHeader("Authorization", token)
                     .addHeader("RANGE", "bytes=" + downloadLength + '-')
                     .url(downloadUrl)
                     .build();

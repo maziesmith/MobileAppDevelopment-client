@@ -6,6 +6,7 @@ public class Course {
     Integer id;
     String name;
     Integer teacher_id;
+    String teacher_name;
     String description;
     String image;
 
