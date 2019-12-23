@@ -14,7 +14,7 @@ import android.widget.Toast;
 
 import java.io.IOException;
 
-import cl.sse.tongji.edu.android_end.model.HttpTrust.TrustAllCerts;
+import cl.sse.tongji.edu.android_end.common.HttpTrust.TrustAllCerts;
 import cl.sse.tongji.edu.android_end.model.User;
 import cl.sse.tongji.edu.android_end.presenter.login.LoginPresenter;
 import okhttp3.Call;
@@ -115,6 +115,7 @@ public class LoginActivity extends AppCompatActivity {
 
             Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
             Log.d("LoginActivity", "register");
+            startActivity(intent);
         }
     }
 
@@ -127,7 +128,6 @@ public class LoginActivity extends AppCompatActivity {
 
             saveLoginInfo();
 
-            // TODO 学生类型暂时写死
             presenter = new LoginPresenter(LoginActivity.this);
             presenter.SendLoginRequest(id, password, "student");
         }

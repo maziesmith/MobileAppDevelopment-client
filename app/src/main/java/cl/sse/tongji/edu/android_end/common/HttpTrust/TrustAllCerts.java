@@ -1,4 +1,4 @@
-package cl.sse.tongji.edu.android_end.model.HttpTrust;
+package cl.sse.tongji.edu.android_end.common.HttpTrust;
 
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;

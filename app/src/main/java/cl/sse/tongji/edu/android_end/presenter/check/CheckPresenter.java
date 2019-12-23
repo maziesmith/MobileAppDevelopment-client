@@ -15,8 +15,7 @@ import java.util.List;
 
 import cl.sse.tongji.edu.android_end.CheckActivity;
 import cl.sse.tongji.edu.android_end.model.Check;
-import cl.sse.tongji.edu.android_end.model.Course;
-import cl.sse.tongji.edu.android_end.model.HttpTrust.TrustAllCerts;
+import cl.sse.tongji.edu.android_end.common.HttpTrust.TrustAllCerts;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;

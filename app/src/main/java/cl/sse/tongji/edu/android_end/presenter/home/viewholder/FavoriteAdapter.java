@@ -1,7 +1,6 @@
 package cl.sse.tongji.edu.android_end.presenter.home.viewholder;
 
 import android.content.Context;
-import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;

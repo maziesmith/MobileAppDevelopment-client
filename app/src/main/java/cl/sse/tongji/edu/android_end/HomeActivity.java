@@ -30,6 +30,7 @@ import cl.sse.tongji.edu.android_end.presenter.home.fragment.FavoriteFrament;
 import cl.sse.tongji.edu.android_end.presenter.home.fragment.PDFFragment;
 import cl.sse.tongji.edu.android_end.presenter.home.viewholder.CourseAdapter;
 import cl.sse.tongji.edu.android_end.presenter.home.viewholder.FavoriteAdapter;
+import cl.sse.tongji.edu.android_end.presenter.home.viewholder.PDFCourseAdapter;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -40,6 +41,7 @@ public class HomeActivity extends AppCompatActivity {
     private RecyclerView course_recycler;
     private User user;
     private RecyclerView favorite_recycler;
+    private RecyclerView pdf_course_recycler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +53,7 @@ public class HomeActivity extends AppCompatActivity {
         navigation = findViewById(R.id.nav_view);
         course_recycler = findViewById(R.id.course_gallery);
         favorite_recycler = findViewById(R.id.favorite_recycler);
+        pdf_course_recycler = findViewById(R.id.pdf_course_recycler);
 
         user = (User) getIntent().getSerializableExtra("user");
 
@@ -88,6 +91,10 @@ public class HomeActivity extends AppCompatActivity {
                     case "check":
                         Intent check_intent = new Intent(HomeActivity.this,CheckActivity.class);
                         startActivity(check_intent);
+                        break;
+                    case "video":
+                        Intent vedio_intent = new Intent(HomeActivity.this, VedioActivity.class);
+                        startActivity(vedio_intent);
                         break;
 
                 }
@@ -160,5 +167,11 @@ public class HomeActivity extends AppCompatActivity {
         presenter.initPDF();
     }
 
-    public void showAllPDFS(List<Course>courses){}
+    public void showAllPDFS(List<Course>courses){
+        pdf_course_recycler = findViewById(R.id.pdf_course_recycler);
+        LinearLayoutManager manager = new LinearLayoutManager(this);
+        pdf_course_recycler.setLayoutManager(manager);
+        PDFCourseAdapter adapter = new PDFCourseAdapter(courses);
+        pdf_course_recycler.setAdapter(adapter);
+    }
 }

@@ -1,10 +1,10 @@
-package cl.sse.tongji.edu.android_end.presenter.login;
+package cl.sse.tongji.edu.android_end.presenter.register;
 
 import android.annotation.SuppressLint;
-import android.content.SharedPreferences;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
@@ -14,29 +14,24 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-
-import cl.sse.tongji.edu.android_end.LoginActivity;
+import cl.sse.tongji.edu.android_end.RegisterActivity;
 import cl.sse.tongji.edu.android_end.common.HttpTrust.TrustAllCerts;
-import cl.sse.tongji.edu.android_end.model.User;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-import static android.content.Context.MODE_PRIVATE;
+public class RegisterPresenter {
+    RegisterActivity activity;
+    RegisterResponse response_message;
 
-public class LoginPresenter {
-    private LoginActivity activity;
-    private LoginResponseData response_message;
 
-    public LoginPresenter(LoginActivity loginActivity) {
-        activity = loginActivity;
+    public RegisterPresenter(RegisterActivity iactivity) {
+        activity = iactivity;
     }
 
-
-    public void SendLoginRequest(final String username, final String password, final String type) {
-        Log.d("LoginPresenter", "SendLoginRequest");
+    public void sendReigsterRequest(final String username, final String password, final String email) {
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -50,25 +45,22 @@ public class LoginPresenter {
                     Map map = new HashMap();
                     map.put("username", username);
                     map.put("password", password);
-                    map.put("type", type);
+                    map.put("type", "student");
+                    map.put("email", email);
                     Gson gson = new Gson();
                     String json_str = gson.toJson(map);
 
                     RequestBody body = RequestBody.Companion.create(JSON, json_str);
                     Request request = new Request.Builder()
-                            .url("https://118.25.153.97/auth/login")
+                            .url("https://118.25.153.97/auth/register")
                             .post(body)
                             .build();
                     Response response = client.newCall(request).execute();
                     Log.d("LoginPresenter", "succeed");
                     String responseData = response.body().string();
                     Log.d("LoginPresenter", responseData);
-                    response_message = gson.fromJson(responseData, LoginResponseData.class);
+                    response_message = gson.fromJson(responseData, RegisterResponse.class);
 
-                    //将用户写到存储控件以便于服务
-                    User user = response_message.getUser();
-
-                    response_message.setUserType(type);
                     Message message = new Message();
                     message.obj = response_message;
                     handler.sendMessage(message);
@@ -77,9 +69,9 @@ public class LoginPresenter {
                 } catch (IOException e) {
                     e.printStackTrace();
                     Log.e("aaa", "bbb");
-                } catch (IllegalStateException e){
-                    response_message.flag= Boolean.FALSE;
-                    response_message.message="Server is off line";
+                } catch (IllegalStateException e) {
+                    response_message.flag = Boolean.FALSE;
+                    response_message.message = "Server is off line";
                     Message message = new Message();
                     message.obj = response_message;
                     handler.sendMessage(message);
@@ -88,20 +80,17 @@ public class LoginPresenter {
         }).start();
     }
 
+
     @SuppressLint("HandlerLeak")
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(@NonNull Message msg) {
             super.handleMessage(msg);
             if (response_message.flag) {
-                SharedPreferences.Editor editor = activity.getSharedPreferences("token", MODE_PRIVATE).edit();
-                editor.putString("token", response_message.token);
-                editor.apply();
-                activity.jumpToHome(response_message.getUser());
+                Toast.makeText(activity, "注册成功", Toast.LENGTH_LONG).show();
             } else {
-                activity.showErrorMessage("登陆失败", response_message.message);
+                Toast.makeText(activity, "失败：" + response_message.message, Toast.LENGTH_LONG).show();
             }
         }
     };
-
 }

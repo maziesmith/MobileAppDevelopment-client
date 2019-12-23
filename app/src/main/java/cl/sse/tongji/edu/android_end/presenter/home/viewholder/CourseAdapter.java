@@ -21,12 +21,9 @@ import com.bumptech.glide.Glide;
 
 import java.util.List;
 
-import cl.sse.tongji.edu.android_end.HomeActivity;
 import cl.sse.tongji.edu.android_end.R;
 import cl.sse.tongji.edu.android_end.model.Course;
-import cl.sse.tongji.edu.android_end.model.User;
 import cl.sse.tongji.edu.android_end.presenter.home.CoursePresenter;
-import cl.sse.tongji.edu.android_end.presenter.home.Home;
 
 import static android.content.Context.MODE_PRIVATE;
 

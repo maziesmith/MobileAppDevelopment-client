@@ -1,4 +1,4 @@
-package cl.sse.tongji.edu.android_end.presenter;
+package cl.sse.tongji.edu.android_end.presenter.download;
 
 import android.os.AsyncTask;
 import android.os.Environment;
@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.RandomAccessFile;
 
-import cl.sse.tongji.edu.android_end.model.HttpTrust.TrustAllCerts;
+import cl.sse.tongji.edu.android_end.common.HttpTrust.TrustAllCerts;
 import cl.sse.tongji.edu.android_end.model.User;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;

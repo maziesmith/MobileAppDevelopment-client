@@ -19,7 +19,7 @@ import java.util.Map;
 
 import cl.sse.tongji.edu.android_end.HomeActivity;
 import cl.sse.tongji.edu.android_end.model.Course;
-import cl.sse.tongji.edu.android_end.model.HttpTrust.TrustAllCerts;
+import cl.sse.tongji.edu.android_end.common.HttpTrust.TrustAllCerts;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -235,8 +235,6 @@ public class CoursePresenter {
         public void handleMessage(@NonNull Message msg) {
             super.handleMessage(msg);
             List<Course> courses = (List<Course>) msg.obj;
-
-            //TODO show all favorite
             activity.showAllPDFS(courses);
         }
     };

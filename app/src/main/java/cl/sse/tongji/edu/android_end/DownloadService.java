@@ -16,11 +16,10 @@ import android.widget.Toast;
 import androidx.core.app.NotificationCompat;
 
 import java.io.File;
-import java.io.InputStream;
 
 import cl.sse.tongji.edu.android_end.model.User;
-import cl.sse.tongji.edu.android_end.presenter.DownloadListener;
-import cl.sse.tongji.edu.android_end.presenter.DownloadTask;
+import cl.sse.tongji.edu.android_end.presenter.download.DownloadListener;
+import cl.sse.tongji.edu.android_end.presenter.download.DownloadTask;
 
 public class DownloadService extends Service {
 

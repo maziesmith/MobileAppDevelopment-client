@@ -4,7 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
@@ -144,7 +144,7 @@ public class CheckActivity extends AppCompatActivity {
 
     public void loadAllChecks(List<Check>checks){
         check_recycler = findViewById(R.id.check_recycler);
-        LinearLayoutManager manager = new LinearLayoutManager(this);
+        GridLayoutManager manager = new GridLayoutManager(this, 1);
         check_recycler.setLayoutManager(manager);
         CheckAdapter adapter = new CheckAdapter(checks);
         check_recycler.setAdapter(adapter);

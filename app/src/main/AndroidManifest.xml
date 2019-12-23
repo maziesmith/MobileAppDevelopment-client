@@ -20,7 +20,11 @@
         android:roundIcon="@drawable/international"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".OkDownloadActivity"></activity>
+        <activity
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:name=".VedioActivity"></activity>
+        <activity android:name=".OkDownloadActivity" />
         <activity android:name=".PDFActivity" />
 
         <service
